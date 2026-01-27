@@ -118,37 +118,14 @@
   const appBox = document.getElementById("app");
 
   /* ✅ Lock Persistence */
-  function checkLock() {
-    const unlockTime = localStorage.getItem("rosaryUnlockTime");
-    if (!unlockTime) return false;
-    return new Date() < new Date(unlockTime);
-  }
+  
 
   function showLockScreen() {
     lockScreen.style.display = "flex";
     appBox.style.display = "none";
   }
 
-  function lockUntilMidnight() {
-    const now = new Date();
-    const midnight = new Date();
-    midnight.setHours(24, 0, 0, 0);
-
-    localStorage.setItem("rosaryUnlockTime", midnight.toISOString());
-
-    showLockScreen();
-
-    setTimeout(() => {
-      localStorage.removeItem("rosaryUnlockTime");
-      location.reload();
-    }, midnight - now);
-  }
-
-  /* ✅ If already locked */
-  if (checkLock()) {
-    showLockScreen();
-    return;
-  }
+  
 
   /* ✅ Pages Content */
   const pages = [
@@ -441,11 +418,11 @@
       <h1 style="text-align:center;">🎉 Congratulations Aleena!</h1>
       <p style="text-align:center;">You've completed today's rosary successfully.</p>
       <div class="checkmark">✔</div>
-      <p style="text-align:center;color:red;">Locking site in 5 seconds...</p>
+      <p style="text-align:center;color:red;">May God bless You...</p>
     `;
 
     nextBtn.style.display = "none";
-    setTimeout(lockUntilMidnight, 5000);
+    
   }
 
   /* ✅ Start */
