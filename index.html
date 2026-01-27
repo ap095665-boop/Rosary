@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
+
+<title>Daily Rosary Mystery</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: white;
+  }
+
+  /* ✅ Main App Layout */
+  #app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: white;
+  }
+
+  /* ✅ Scrollable Content Area */
+  #content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  /* ✅ Fixed Bottom Button */
+  #buttonBar {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    background: white;
+    text-align: center;
+  }
+
+  button {
+    padding: 16px 45px;
+    font-size: 20px;
+    border: none;
+    border-radius: 14px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    width: 90%;
+    max-width: 350px;
+  }
+
+  /* ✅ Final Check Animation */
+  .checkmark {
+    font-size: 90px;
+    text-align: center;
+    margin: 20px 0;
+    animation: pulse 1s infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { transform: scale(1); }
+    to   { transform: scale(1.3); }
+  }
+
+  /* ✅ Lock Screen */
+  #lockScreen {
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    z-index: 99999;
+  }
+
+  #lockScreen h1 {
+    font-size: 40px;
+    margin: 0;
+  }
+
+  #lockScreen p {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #ddd;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ✅ APP -->
+<div id="app">
+  <div id="content"></div>
+
+  <div id="buttonBar">
+    <button id="nextBtn"></button>
+  </div>
+</div>
+
+<!-- ✅ LOCK SCREEN -->
+<div id="lockScreen">
+  <h1>🔒 SITE LOCKED</h1>
+  <p>Unlocks automatically at 12:00 AM</p>
+</div>
+
+<script>
+(function(){
+
+  const content = document.getElementById("content");
+  const nextBtn = document.getElementById("nextBtn");
+  const lockScreen = document.getElementById("lockScreen");
+  const appBox = document.getElementById("app");
+
+  /* ✅ Lock Persistence */
+  function checkLock() {
+    const unlockTime = localStorage.getItem("rosaryUnlockTime");
+    if (!unlockTime) return false;
+    return new Date() < new Date(unlockTime);
+  }
+
+  function showLockScreen() {
+    lockScreen.style.display = "flex";
+    appBox.style.display = "none";
+  }
+
+  function lockUntilMidnight() {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+
+    localStorage.setItem("rosaryUnlockTime", midnight.toISOString());
+
+    showLockScreen();
+
+    setTimeout(() => {
+      localStorage.removeItem("rosaryUnlockTime");
+      location.reload();
+    }, midnight - now);
+  }
+
+  /* ✅ If already locked */
+  if (checkLock()) {
+    showLockScreen();
+    return;
+  }
+
+  /* ✅ Pages Content */
+  const pages = [
+
+    /* ✅ PAGE 1 (FULL MALAYALAM CONTENT) */
+    {
+      text: `
+        <h2 style="color:black;font-weight:bold;text-align:center;">
+          പരി. ദൈവമാതാവിനോടുള്ള ജപമാല
+        </h2>
+
+        <h3 style="color:red;text-align:center;">
+          പ്രാരംഭ പ്രാർത്ഥന
+        </h3>
+
+        <p style="text-align:justify;">
+          അളവില്ലാത്ത സകല നന്മസ്വരൂപിയായ സർവ്വേശ്വരാ കർത്താവേ, നീചരും നന്ദിഹീനരും
+          പാപികളുമായ അടിയങ്ങൾ അറുതിയില്ലാത്ത മഹിമ പ്രതാപത്തോടു കൂടിയ നിന്റെ സന്നിധിയിൽ
+          പ്രാർത്ഥിക്കുവാൻ അയോഗ്യരാകുന്നു. എങ്കിലും നിന്റെ അളവില്ലാത്ത ദയയിൽ ശരണപ്പെട്ട്,
+          പരിശുദ്ധ ദൈവമാതാവിന്റെ സ്തുതിക്കായി ഈ പ്രാർത്ഥന ചൊല്ലുവാൻ ആഗ്രഹിക്കുന്നു.
+          ഇതു ഭക്തിയോടെ ചൊല്ലി, അന്യചിന്തകൾ കൂടാതെ നിറവേറ്റുവാൻ, കർത്താവേ,
+          സഹായം ചെയ്യണമേ.
+        </p>
+
+        <h3 style="color:red;text-align:center;margin-top:25px;">
+          അപ്പൊസ്തോലന്മാരുടെ വിശ്വാസപ്രമാണം
+        </h3>
+
+        <p style="text-align:justify;">
+          ആകാശവും ഭൂമിയും സൃഷ്ടിച്ച സർവ്വശക്തിയുള്ള പിതാവായ ദൈവത്തിൽ ഞാൻ വിശ്വസിക്കുന്നു.
+          തന്റെ ഏകപുത്രനായ ഞങ്ങളുടെ കർത്താവിശോമിശിഹായിലും ഞാൻ വിശ്വസിക്കുന്നു.
+          ഈ പുത്രൻ പരിശുദ്ധാത്മാവിനാൽ ഗർഭസ്ഥനായി, കന്യക മറിയാമ്മിൽനിന്ന് ജനിച്ച്,
+          പൊന്തിയോസ് പീലാത്തോസിന്റെ ദിവസങ്ങളിൽ കഷ്ടതയനുഭവിച്ച്, ക്രൂശിക്കപ്പെട്ട്, മരിച്ച്,
+          അടക്കപ്പെട്ട്, പാതാളത്തിൽ ഇറങ്ങി മരിച്ചവരുടെ ഇടയിൽ നിന്ന് മൂന്നാം നാൾ ഉയിർത്ത്,
+          സ്വർഗ്ഗത്തിൽ കരേറി സർവ്വശക്തനായ പിതാവിന്റെ വലത്തുഭാഗത്ത് ഇരിക്കുന്നുവെന്നും
+          അവിടെനിന്ന് ജീവിക്കുന്നവരേയും മരിച്ചവരേയും വിധിക്കുവാൻ വീണ്ടും വരുമെന്നും ഞാൻ വിശ്വസിക്കുന്നു.
+          പരിശുദ്ധാത്മാവിലും വിശുദ്ധ കത്തോലിക്കാ സഭയിലും പുണ്യവാന്മാരുടെ ഐക്യത്തിലും
+          പാപങ്ങളുടെ മോചനത്തിലും മരിച്ചവരുടെ ഉത്ഥാനത്തിലും നിത്യായുസ്സിലും ഞാൻ വിശ്വസിക്കുന്നു.
+          ആമ്മീൻ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;margin-top:20px;">
+          1 സ്വ.
+        </p>
+
+        <p style="text-align:justify;">
+          പിതാവായ ദൈവത്തിന്റെ പുത്രിയായ പരിശുദ്ധ ദൈവമാതാവേ, ഞങ്ങളിൽ ദൈവവിശ്വാസമെന്ന
+          പുണ്യം ഫലവത്തായിത്തീരുവാൻ നിന്റെ തിരുക്കുമാരനോട് അപേക്ഷിക്കണമേ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;">1 കൃപ</p>
+
+        <p style="text-align:justify;">
+          പുത്രനായ ദൈവത്തിന്റെ മാതാവായ പരിശുദ്ധ ദൈവമാതാവേ, ഞങ്ങളിൽ ദൈവശരണമെന്ന
+          പുണ്യം വർദ്ധിക്കുവാൻ നിന്റെ തിരുക്കുമാരനോട് അപേക്ഷിക്കണമേ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;">1 കൃപ</p>
+
+        <p style="text-align:justify;">
+          പരിശുദ്ധാത്മാവായ ദൈവത്തിന് എത്രയും പ്രിയമുള്ളവളായ പരിശുദ്ധ ദൈവമാതാവേ,
+          ഞങ്ങളിൽ ദൈവസ്നേഹമെന്ന പുണ്യം പ്രബലപ്പെട്ടുവരുവാൻ നിന്റെ തിരുക്കുമാരനോട്
+          അപേക്ഷിക്കണമേ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;">
+          1 കൃപ. 1 ത്രി .
+        </p>
+      `,
+      btn: "1st Mystery"
+    },
+
+    /* ✅ PAGE 2–8 PLACEHOLDERS */
+    { text: "<h2>Page 2</h2><p>Second mystery content here...</p>", btn: "2nd Mystery" },
+    { text: "<h2>Page 3</h2><p>Third mystery content here...</p>", btn: "3rd Mystery" },
+    { text: "<h2>Page 4</h2><p>Fourth mystery content here...</p>", btn: "4th Mystery" },
+    { text: "<h2>Page 5</h2><p>Fifth mystery content here...</p>", btn: "5th Mystery" },
+    { text: "<h2>Page 6</h2><p>Continue...</p>", btn: "Continue" },
+    { text: "<h2>Page 7</h2><p>Almost finished...</p>", btn: "Last Page" },
+    { text: "<h2>Page 8</h2><p>Final step...</p>", btn: "Finish" }
+  ];
+
+  let currentPage = 0;
+
+  /* ✅ Render Page */
+  function renderPage() {
+    content.scrollTop = 0;
+    content.innerHTML = pages[currentPage].text;
+    nextBtn.innerText = pages[currentPage].btn;
+    nextBtn.onclick = nextPage;
+  }
+
+  /* ✅ Next Page */
+  function nextPage() {
+    currentPage++;
+
+    if (currentPage < pages.length) {
+      renderPage();
+    } else {
+      showFinalPage();
+    }
+  }
+
+  /* ✅ Final Congratulations Page */
+  function showFinalPage() {
+    content.innerHTML = `
+      <h1 style="text-align:center;">🎉 Congratulations Aleena!</h1>
+      <p style="text-align:center;">You've completed today's rosary successfully.</p>
+      <div class="checkmark">✔</div>
+      <p style="text-align:center;color:red;">Locking site in 5 seconds...</p>
+    `;
+
+    nextBtn.style.display = "none";
+    setTimeout(lockUntilMidnight, 5000);
+  }
+
+  /* ✅ Start */
+  renderPage();
+
+})();
+</script>
+
+</body>
+</html>
