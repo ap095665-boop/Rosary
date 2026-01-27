@@ -414,14 +414,28 @@
 
   /* ✅ Final Congratulations Page */
   function showFinalPage() {
-    content.innerHTML = `
-      <h1 style="text-align:center;">🎉 Congratulations Aleena!</h1>
-      <p style="text-align:center;">You've completed today's rosary successfully.</p>
-      <div class="checkmark">✔</div>
-      <p style="text-align:center;color:red;">May God bless You...</p>
-    `;
 
-    nextBtn.style.display = "none";
+  content.innerHTML = `
+    <h1 style="text-align:center;">🎉 Congratulations Aleena!</h1>
+    <p style="text-align:center;">
+      You've completed today's rosary successfully.
+    </p>
+
+    <div class="checkmark">✔</div>
+
+    <p style="color:green;font-weight:bold;text-align:center;">
+      Redirecting to Points Page in 3 seconds...
+    </p>
+  `;
+
+  nextBtn.style.display = "none";
+
+  // ✅ Redirect to Blogger Points Page
+  setTimeout(() => {
+    window.location.href =
+      "https://https://sinland-access.blogspot.com/p/your-rosary-points-0-next-goal-500.html";
+  }, 3000);
+}
     
   }
 
